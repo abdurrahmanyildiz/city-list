@@ -19,9 +19,11 @@ This is a repository for city manuals. Repository includes 2 main projects as Sp
 
 * After application started you can check
   * http://localhost:4200/cities
-
+  
  
 ![Sample UI](https://github.com/abdurrahmanyildiz/city-list-app/blob/master/city-list-ng/src/assets/images/cities.png)
+
+## Also you can manually trigger the "build" Action to run unit tests.
 
 ![GitHub Manuel Triggered Action](https://github.com/abdurrahmanyildiz/city-list-app/blob/master/city-list/src/main/resources/static/cities-tests.png)
 
