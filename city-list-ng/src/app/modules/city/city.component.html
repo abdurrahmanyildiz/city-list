@@ -1,0 +1,11 @@
+<div class="header">
+  <app-search-bar (search)="search($event)" (clear)="clearSearch()"></app-search-bar>
+  <app-page-size [(pageSize)]="pageSize" [pageNum]="pageNum" [sizeOptions]="sizeOptions" (refreshEmitter)="getCityList()"></app-page-size>
+  <app-page-number [(pageNum)]="pageNum" [isPageFull]="1000" (refreshEmitter)="getCityList()"></app-page-number>
+</div>
+
+<div class="card-container">
+  <div *ngFor="let city of cityList$ | async">
+    <city-item [city]="city" (update)="updateCity($event)"> </city-item>
+  </div>
+</div>
