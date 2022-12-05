@@ -22,3 +22,6 @@ This is a repository for city manuals. Repository includes 2 main projects as Sp
 
  
 ![Sample UI](https://github.com/abdurrahmanyildiz/city-list-app/blob/master/city-list-ng/src/assets/images/cities.png)
+
+![GitHub Manuel Triggered Action](https://github.com/abdurrahmanyildiz/city-list-app/blob/master/city-list/src/main/resources/static/cities-tests.png)
+
