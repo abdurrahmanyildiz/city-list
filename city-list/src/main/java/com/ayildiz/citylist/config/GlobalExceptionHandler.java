@@ -28,6 +28,7 @@ public class GlobalExceptionHandler {
 
         switch (exc.getClass().getSimpleName()) {
             case "IllegalArgumentException":
+            case "CityNotFoundException":
                 return HttpStatus.BAD_REQUEST;
             default:
                 break;

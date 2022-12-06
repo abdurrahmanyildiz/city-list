@@ -6,6 +6,7 @@ package com.ayildiz.citylist.service;
  */
 
 import com.ayildiz.citylist.entity.City;
+import com.ayildiz.citylist.exception.CityNotFoundException;
 import com.ayildiz.citylist.model.CityDto;
 import com.ayildiz.citylist.model.CityPatchDto;
 import com.ayildiz.citylist.repo.CityRepository;
@@ -25,7 +26,7 @@ public class CityService {
     }
 
     public CityDto getById(Long id) {
-        City result = cityRepository.findById(id).orElseThrow();
+        City result = cityRepository.findById(id).orElseThrow(() -> new CityNotFoundException(id));
         return CityMapper.mapCityToDto(result);
     }
 
@@ -39,9 +40,9 @@ public class CityService {
     }
 
     public CityDto update(Long id, CityPatchDto updated) {
-        City current = cityRepository.findById(id).orElseThrow(() -> new IllegalArgumentException());
+        City current = cityRepository.findById(id).orElseThrow(() -> new CityNotFoundException(id));
 
-        if (!current.getName().equals(updated.name())) {
+        if (updated.name() != null && !current.getName().equals(updated.name())) {
             current.setName(updated.name());
         }
         if (!current.getUrl().equals(updated.url())) {
