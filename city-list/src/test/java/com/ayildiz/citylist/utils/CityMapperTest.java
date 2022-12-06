@@ -1,6 +1,6 @@
 package com.ayildiz.citylist.utils;
 
-import com.ayildiz.citylist.model.City;
+import com.ayildiz.citylist.entity.City;
 import com.ayildiz.citylist.model.CityDto;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -29,16 +29,12 @@ class CityMapperTest {
                 .url(url)
                 .build();
 
-        CityDto dto = new CityDto().builder()
-                .id(id)
-                .name(name)
-                .url(url)
-                .build();
+        CityDto dto = new CityDto(id, name, url);
         CityDto result = CityMapper.mapCityToDto(city);
 
-        assertEquals(dto.getId(), result.getId());
-        assertEquals(dto.getName(), result.getName());
-        assertEquals(dto.getUrl(), result.getUrl());
+        assertEquals(dto.id(), result.id());
+        assertEquals(dto.name(), result.name());
+        assertEquals(dto.url(), result.url());
     }
 
     @Test
@@ -53,11 +49,7 @@ class CityMapperTest {
                 .url(url)
                 .build();
 
-        CityDto dto = new CityDto().builder()
-                .id(id)
-                .name(name)
-                .url(url)
-                .build();
+        CityDto dto = new CityDto(id, name, url);
         City result = CityMapper.mapDtoToCity(dto);
 
         assertEquals(result.getId(), city.getId());

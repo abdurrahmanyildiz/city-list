@@ -1,4 +1,4 @@
-package com.ayildiz.citylist.model;
+package com.ayildiz.citylist.entity;
 
 /*
  * @author abdurrahman.yildiz

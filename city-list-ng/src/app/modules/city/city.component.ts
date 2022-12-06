@@ -1,3 +1,4 @@
+import { CityPatch } from './../../model/city-patch';
 import { Observable } from 'rxjs';
 import { CityService } from './../../core/services/city.service';
 import { Component, OnInit } from '@angular/core';
@@ -31,7 +32,10 @@ export class CityComponent implements OnInit {
   }
 
   updateCity(updatedCity: City) {
-    this.cityService.update(updatedCity).subscribe(res=> {
+    const id = Number(updatedCity.id);
+    const cityPatch: CityPatch = { name: updatedCity.name, url : updatedCity.url};
+
+    this.cityService.update(id, cityPatch).subscribe(res=> {
       alert("Updated Successfully");
       this.getCityList();
     },

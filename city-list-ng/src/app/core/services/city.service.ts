@@ -1,3 +1,4 @@
+import { CityPatch } from './../../model/city-patch';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -21,8 +22,8 @@ export class CityService {
     return this.http.get<City[]>(`${this.baseUrl}/v1/cities/search/${name}`);
   }
 
-  update(updated: City): Observable<City> {
-    const url = `${this.baseUrl}/v1/cities`;
-    return this.http.put<City>(url, updated);
+  update(id:number, updated: CityPatch): Observable<City> {
+    const url = `${this.baseUrl}/v1/cities/${id}`;
+    return this.http.patch<City>(url, updated);
   }
 }

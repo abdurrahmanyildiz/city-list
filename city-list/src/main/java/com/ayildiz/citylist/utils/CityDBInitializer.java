@@ -7,7 +7,6 @@ package com.ayildiz.citylist.utils;
 
 import com.ayildiz.citylist.model.CityDto;
 import com.ayildiz.citylist.service.CityService;
-import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
@@ -20,7 +19,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -65,11 +63,7 @@ public class CityDBInitializer {
 
     public static CityDto parseStreamToDto(String lineOfCityStream) {
         String[] params = lineOfCityStream.split(",");
-        return new CityDto().builder()
-                .id(Long.parseLong(params[0]))
-                .name(params[1])
-                .url(params[2])
-                .build();
+        return new CityDto(Long.parseLong(params[0]), params[1], params[2]);
     }
 
     private String[] readAll(Reader rd) throws IOException {

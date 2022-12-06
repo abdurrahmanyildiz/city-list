@@ -1,7 +1,8 @@
 package com.ayildiz.citylist.service;
 
-import com.ayildiz.citylist.model.City;
+import com.ayildiz.citylist.entity.City;
 import com.ayildiz.citylist.model.CityDto;
+import com.ayildiz.citylist.model.CityPatchDto;
 import com.ayildiz.citylist.repo.CityRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -39,11 +40,7 @@ class CityServiceTest {
         String name = "My City";
         String url = "https://myurl.com";
 
-        CityDto cityDto = new CityDto().builder()
-                .id(id)
-                .name(name)
-                .url(url)
-                .build();
+        CityDto cityDto = new CityDto(id, name, url);
         City city = new City().builder()
                 .id(id)
                 .name(name)
@@ -96,11 +93,7 @@ class CityServiceTest {
                 .name("My Other City")
                 .url(expected.getFirst().getUrl())
                 .build();
-        CityDto updated = new CityDto().builder()
-                .id(expected.getFirst().getId())
-                .name("My Other City")
-                .url(expected.getFirst().getUrl())
-                .build();
+        CityPatchDto updated = new CityPatchDto("My Other City", expected.getFirst().getUrl());
 
 
         //When
@@ -108,7 +101,9 @@ class CityServiceTest {
         Mockito.when(cityRepository.save(any(City.class))).thenReturn(updateRequest);
 
         //Then
-        assertEquals(updated, underTest.update(updated));
+        CityDto updatedFromService = underTest.update(1L, updated);
+        assertEquals(updated.name(), updatedFromService.name());
+        assertEquals(updated.url(), updatedFromService.url());
 
     }
 }

@@ -5,8 +5,9 @@ package com.ayildiz.citylist.service;
  * @created on 11/30/2022
  */
 
-import com.ayildiz.citylist.model.City;
+import com.ayildiz.citylist.entity.City;
 import com.ayildiz.citylist.model.CityDto;
+import com.ayildiz.citylist.model.CityPatchDto;
 import com.ayildiz.citylist.repo.CityRepository;
 import com.ayildiz.citylist.utils.CityMapper;
 import org.springframework.data.domain.PageRequest;
@@ -37,14 +38,14 @@ public class CityService {
         return CityMapper.mapCityListToDtoList(cityRepository.findByNameContainingIgnoreCase(name));
     }
 
-    public CityDto update(CityDto updated) {
-        City current = cityRepository.findById(updated.getId()).orElseThrow(() -> new IllegalArgumentException());
+    public CityDto update(Long id, CityPatchDto updated) {
+        City current = cityRepository.findById(id).orElseThrow(() -> new IllegalArgumentException());
 
-        if (!current.getName().equals(updated.getName())) {
-            current.setName(updated.getName());
+        if (!current.getName().equals(updated.name())) {
+            current.setName(updated.name());
         }
-        if (!current.getUrl().equals(updated.getUrl())) {
-            current.setUrl(updated.getUrl());
+        if (!current.getUrl().equals(updated.url())) {
+            current.setUrl(updated.url());
         }
 
         return CityMapper.mapCityToDto(cityRepository.save(current));

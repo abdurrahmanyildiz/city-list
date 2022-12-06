@@ -6,6 +6,7 @@ package com.ayildiz.citylist.controller;
  */
 
 import com.ayildiz.citylist.model.CityDto;
+import com.ayildiz.citylist.model.CityPatchDto;
 import com.ayildiz.citylist.service.CityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -45,10 +46,10 @@ public class CityController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @PutMapping
-    public ResponseEntity<CityDto> updateCity(@RequestBody CityDto updatedCity) {
+    @PatchMapping("{id}")
+    public ResponseEntity<CityDto> updateCity(@PathVariable("id") Long id, @RequestBody CityPatchDto updatedCity) {
 
-        CityDto result = cityService.update(updatedCity);
+        CityDto result = cityService.update(id, updatedCity);
 
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
