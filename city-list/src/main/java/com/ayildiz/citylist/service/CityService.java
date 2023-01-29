@@ -7,36 +7,34 @@ package com.ayildiz.citylist.service;
 
 import com.ayildiz.citylist.entity.City;
 import com.ayildiz.citylist.exception.CityNotFoundException;
+import com.ayildiz.citylist.mapper.CityMapper;
 import com.ayildiz.citylist.model.CityDto;
 import com.ayildiz.citylist.model.CityPatchDto;
 import com.ayildiz.citylist.repo.CityRepository;
-import com.ayildiz.citylist.utils.CityMapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class CityService {
 
     private final CityRepository cityRepository;
 
-    public CityService(CityRepository cityRepository){
-        this.cityRepository = cityRepository;
-    }
-
     public CityDto getById(Long id) {
         City result = cityRepository.findById(id).orElseThrow(() -> new CityNotFoundException(id));
-        return CityMapper.mapCityToDto(result);
+        return CityMapper.INSTANCE.cityToCityDto(result);
     }
 
     public List<CityDto> getAll(int pageNumber, int pageSize) {
         PageRequest page = PageRequest.of(pageNumber, pageSize);
-        return CityMapper.mapCityListToDtoList(cityRepository.findAll(page).toList());
+        return CityMapper.INSTANCE.cityListToCityDtoList(cityRepository.findAll(page).toList());
     }
 
     public List<CityDto> findByName(String name) {
-        return CityMapper.mapCityListToDtoList(cityRepository.findByNameContainingIgnoreCase(name));
+        return CityMapper.INSTANCE.cityListToCityDtoList(cityRepository.findByNameContainingIgnoreCase(name));
     }
 
     public CityDto update(Long id, CityPatchDto updated) {
@@ -49,11 +47,11 @@ public class CityService {
             current.setUrl(updated.url());
         }
 
-        return CityMapper.mapCityToDto(cityRepository.save(current));
+        return CityMapper.INSTANCE.cityToCityDto(cityRepository.save(current));
     }
 
-    public List<City> saveAll(List<CityDto> cityDto) {
-        List<City> newCityList = CityMapper.mapCityDtoListToCityList(cityDto);
+    public List<City> saveAll(List<CityDto> cityDtoList) {
+        List<City> newCityList = CityMapper.INSTANCE.cityDtoListToCityList(cityDtoList);
         return cityRepository.saveAll(newCityList);
     }
 
