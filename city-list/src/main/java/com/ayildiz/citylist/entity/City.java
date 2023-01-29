@@ -29,5 +29,4 @@ public class City {
     @Column(name = "url", length = 1000)
     private String url;
 
-
 }
